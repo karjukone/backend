@@ -1,4 +1,4 @@
-# api http test requests for VSCode rest client
+ api http test requests for VSCode rest client
 
 ### get cats
 GET http://localhost:3000/api/v1/cats
@@ -18,8 +18,36 @@ Content-Type: application/json
   "birthdate": "2022-01-01"
 }
 
+### post new cat with image
+POST http://127.0.0.1:3000/api/v1/cats HTTP/1.1
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Misu
+--MyBoundary
+Content-Disposition: form-data; name="weight"
+
+6
+--MyBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--MyBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="kuva.jpg"
+Content-Type: image/jpeg
+
+< ./kuva.jpg
+--MyBoundary--
+
+
 ### Modify existing cat
-PUT http://127.0.0.1:3000/api/v1/cats/9592
+PUT http://127.0.0.1:3000/api/v1/cats/9594
 Content-Type: application/json
 
 {
@@ -31,7 +59,8 @@ Content-Type: application/json
 }
 
 ### Delete cat by id
-DELETE http://127.0.0.1:3000/api/v1/cats/9590
+DELETE http://127.0.0.1:3000/api/v1/cats/9593
+
 
 
 # Testing the user routes
