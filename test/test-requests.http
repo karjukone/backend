@@ -4,16 +4,67 @@
 GET http://localhost:3000/api/v1/cats
 
 ### get cat by id
-GET http://localhost:3000/api/v1/cats/4
+GET http://localhost:3000/api/v1/cats/9592
 
 ### post new cat
 POST http://localhost:3000/api/v1/cats
 Content-Type: application/json
 
 {
-  "name": "New Cat",
-  "birthdate": "2022-01-01",
+  "cat_name": "New Cat",
   "weight": 5,
-  "owner": "Owner Name",
-  "image": "https://loremflickr.com/320/240/cat"
+  "owner": 3333,
+  "filename": "https://loremflickr.com/320/240/cat",
+  "birthdate": "2022-01-01"
 }
+
+### Modify existing cat
+PUT http://127.0.0.1:3000/api/v1/cats/9592
+Content-Type: application/json
+
+{
+  "cat_name": "Frank da CAT",
+  "weight": 11,
+  "owner": 3609,
+  "filename": "f3dbafakjsdfhg4",
+  "birthdate": "2021-10-12"
+}
+
+### Delete cat by id
+DELETE http://127.0.0.1:3000/api/v1/cats/9590
+
+
+# Testing the user routes
+
+### get user
+GET http://localhost:3000/api/v1/users
+
+### get user by id
+GET http://localhost:3000/api/v1/users/3609
+
+### post new user
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name": "Ulla S",
+    "username": "ullas",
+    "email": "ullas@metropolia.fi",
+    "role": "admin",
+    "password": "password"
+}
+
+### Modify existing user
+PUT http://127.0.0.1:3000/api/v1/users/3609
+Content-Type: application/json
+
+{
+    "name": "Ulla S",
+    "username": "ullapulla",
+    "email": "ullas@metropolia.fi",
+    "role": "admin",
+    "password": "password"
+}
+
+### Delete cat by user
+DELETE http://127.0.0.1:3000/api/v1/users/3609
