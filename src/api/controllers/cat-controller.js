@@ -1,12 +1,11 @@
 import {addCat, findCatById, listAllCats, modifyCat, removeCat} from '../models/cat-model.js';
 
-
-const getCat = (req, res) => {
-  res.json(listAllCats());
+const getCat = async (req, res) => {
+  res.json(await listAllCats());
 };
 
-const getCatById = (req, res) => {
-  const cat = findCatById(req.params.id);
+const getCatById = async (req, res) => {
+  const cat = await findCatById(req.params.id);
   if (cat) {
     res.json(cat);
   } else {
@@ -14,14 +13,14 @@ const getCatById = (req, res) => {
   }
 };
 
-const postCat = (req, res) => {
+const postCat = async (req, res) => {
   console.log(req.body);
   console.log(req.file);
   console.log(req.file.filename);
   // lisätään tiedostonimi req.bodyyn, jotta addCat saa kaiken
   req.body.filename = req.file.filename;
 
-  const result = addCat(req.body);
+  const result = await addCat(req.body);
   if (result.cat_id) {
     res.status(201);
     res.json({message: 'New cat added.', result});
@@ -29,6 +28,7 @@ const postCat = (req, res) => {
     res.sendStatus(400);
   }
 };
+
 
 const putCat = (req, res) => {
   const cat = modifyCat(req.params.id, req.body);
