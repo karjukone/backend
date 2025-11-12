@@ -1,0 +1,19 @@
+# api http test requests for VSCode rest client
+
+### get cats
+GET http://localhost:3000/api/v1/cats
+
+### get cat by id
+GET http://localhost:3000/api/v1/cats/4
+
+### post new cat
+POST http://localhost:3000/api/v1/cats
+Content-Type: application/json
+
+{
+  "name": "New Cat",
+  "birthdate": "2022-01-01",
+  "weight": 5,
+  "owner": "Owner Name",
+  "image": "https://loremflickr.com/320/240/cat"
+}
