@@ -27,6 +27,8 @@ const cats = [
 // Web sivusto tarjoillaan public-kansiosta
 //app.use('/sivusto', express.static('public')); // aliosoite /sivusto
 // tai palvelimen juuri /
+app.use('/public', express.static('public'));
+
 app.use(express.static('public'));
 
 // parsii json-datan http-pyynnöstä
