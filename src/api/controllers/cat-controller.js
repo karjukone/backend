@@ -30,8 +30,8 @@ const postCat = async (req, res) => {
 };
 
 
-const putCat = (req, res) => {
-  const cat = modifyCat(req.params.id, req.body);
+const putCat = async (req, res) => {
+  const cat = await modifyCat(req.params.id, req.body);
   if (cat) {
     res.status(200).json({message: 'Cat item updated.'});
   } else {
@@ -39,8 +39,8 @@ const putCat = (req, res) => {
   }
 };
 
-const deleteCat = (req, res) => {
-  const cat = removeCat(req.params.id);
+const deleteCat = async (req, res) => {
+  const cat = await removeCat(req.params.id);
   if (cat) {
     res.status(200).json({message: 'Cat item deleted.'});
   } else {

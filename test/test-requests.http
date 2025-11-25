@@ -6,6 +6,8 @@ GET http://localhost:3000/api/v1/cats
 ### get cat by id
 GET http://localhost:3000/api/v1/cats/41
 
+
+
 ### post new cat
 POST http://localhost:3000/api/v1/cats
 Content-Type: application/json
@@ -47,7 +49,7 @@ Content-Type: image/jpeg
 
 
 ### Modify existing cat
-PUT http://127.0.0.1:3000/api/v1/cats/9594
+PUT http://127.0.0.1:3000/api/v1/cats/44
 Content-Type: application/json
 
 {
@@ -83,12 +85,12 @@ Content-Type: application/json
 }
 
 ### Modify existing user
-PUT http://127.0.0.1:3000/api/v1/users/3609
+PUT http://127.0.0.1:3000/api/v1/users/38
 Content-Type: application/json
 
 {
     "name": "Ulla S",
-    "username": "ullas",
+    "username": "ullapulla",
     "email": "ullas@metropolia.fi",
     "role": "admin",
     "password": "password"

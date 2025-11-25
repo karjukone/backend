@@ -30,28 +30,29 @@ const addUser = async (user) => {
   return {user_id: result[0].insertId};
 };
 
-const modifyUser = (id, user) => {
-  const {name, username, email, role, password} = user;
-  const foundUser = userItems.find((item) => item.user_id == id);
-  if (foundUser) {
-    Object.assign(foundUser, {
-      name,
-      username,
-      email,
-      role,
-      password,
-    });
-    return foundUser;
+const modifyUser = async (id, user) => {
+  const sql = promisePool.format(`UPDATE wsk_users SET ? WHERE user_id = ?`, [
+    user,
+    id,
+  ]);
+  const rows = await promisePool.execute(sql);
+  console.log('rows', rows);
+  if (rows[0].affectedRows === 0) {
+    return false;
   }
-  return null;
+  return {message: 'sucess'}
 };
 
-const removeUser = (id) => {
-  const index = userItems.findIndex((item) => item.user_id == id);
-  if (index !== -1) {
-    const removedUser = userItems.splice(index, 1);
-    return removedUser[0];
+const removeUser = async (id) => {
+  const [rows] = await promisePool.execute(
+    'DELETE FROM wsk_user WHERE user_id = ?', [id]
+  );
+  console.log('rows', rows);
+  if (rows.affectedRows === 0) {
+    return false;
   }
-  return null;
+  return {message: 'success'};
 };
+
+
 export {listAllUsers, findUserById, addUser, modifyUser, removeUser};
