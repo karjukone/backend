@@ -15,7 +15,7 @@ const getCatById = async (req, res) => {
 
 const postCat = async (req, res) => {
   if (!req.file) {
-    return res.sendStatus(400).json({message: 'File is required'});
+    return res.status(400).json({message: 'File is required'});
   }
   req.body.filename = req.file.filename;
   const result = await addCat(req.body);
@@ -29,7 +29,8 @@ const postCat = async (req, res) => {
 
 
 const putCat = async (req, res) => {
-  const cat = await modifyCat(req.params.id, req.body);
+  const authUser = res.locals.user;
+  const cat = await modifyCat(req.params.id, req.body, authUser);
   if (cat) {
     res.status(200).json({message: 'Cat item updated.'});
   } else {
@@ -38,7 +39,8 @@ const putCat = async (req, res) => {
 };
 
 const deleteCat = async (req, res) => {
-  const cat = await removeCat(req.params.id);
+  const authUser = res.locals.user;
+  const cat = await removeCat(req.params.id, authUser);
   if (cat) {
     res.status(200).json({message: 'Cat item deleted.'});
   } else {

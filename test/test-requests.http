@@ -64,28 +64,58 @@ Content-Type: application/json
 DELETE http://127.0.0.1:3000/api/v1/cats/43
 
 
+
+
+
 # Testing the user routes
+
+### Post login
+POST http://localhost:3000/api/v1/auth
+Content-Type: application/json
+
+{
+  "username": "saku5",
+  "password": "kissa123"
+}
+
+###
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MywibmFtZSI6InNha3UiLCJ1c2VybmFtZSI6InNha3U1IiwiZW1haWwiOiJzYWt1QG1ldHJvcG9saWEuZmkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDYwODMwMywiZXhwIjoxNzY0Njk0NzAzfQ.H2i2cInzoeXmJPkrarweHMCMSh_q5glq920eX4Ri_VA
+
+### Get my user info
+GET http://localhost:3000/api/v1/auth/me
+Authorization: Bearer {{token}}
 
 ### get user
 GET http://localhost:3000/api/v1/users
 
 ### get user by id
-GET http://localhost:3000/api/v1/users/38
+GET http://localhost:3000/api/v1/users/42
 
 ### post new user
 POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
 {
-    "name": "kissaUser",
-    "username": "kalle",
-    "email": "kalle@metropolia.fi",
+    "name": "saku",
+    "username": "saku5",
+    "email": "saku@metropolia.fi",
     "role": "user",
+    "password": "kissa123"
+}
+
+### log in user
+
+POST http://127.0.0.1:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "onkohash",
     "password": "password"
 }
 
 ### Modify existing user
-PUT http://127.0.0.1:3000/api/v1/users/38
+PUT http://127.0.0.1:3000/api/v1/users/42
 Content-Type: application/json
 
 {
