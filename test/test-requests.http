@@ -16,7 +16,7 @@ Content-Type: application/json
   "cat_name": "New Cat",
   "weight": 5,
   "owner": 3333,
-  "filename": "https://loremflickr.com/320/240/cat",
+  "filename": "kuva.jpg",
   "birthdate": "2022-01-01"
 }
 
@@ -27,24 +27,24 @@ Content-Type: multipart/form-data; boundary=MyBoundary
 --MyBoundary
 Content-Disposition: form-data; name="cat_name"
 
-Misu
+Kisuliini
 --MyBoundary
 Content-Disposition: form-data; name="weight"
 
-6
+10
 --MyBoundary
 Content-Disposition: form-data; name="owner"
 
-37
+40
 --MyBoundary
 Content-Disposition: form-data; name="birthdate"
 
-2023-10-08
+2021-01-07
 --MyBoundary
 Content-Disposition: form-data; name="file"; filename="kuva.jpg"
 Content-Type: image/jpeg
 
-< ./kuva.jpg
+./kuva.jpg
 --MyBoundary--
 
 
@@ -77,10 +77,10 @@ POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
 {
-    "name": "Ulla S",
-    "username": "ullas",
-    "email": "ullas@metropolia.fi",
-    "role": "admin",
+    "name": "kissaUser",
+    "username": "kalle",
+    "email": "kalle@metropolia.fi",
+    "role": "user",
     "password": "password"
 }
 
@@ -97,4 +97,4 @@ Content-Type: application/json
 }
 
 ### Delete cat by user
-DELETE http://127.0.0.1:3000/api/v1/users/3609
+DELETE http://127.0.0.1:3000/api/v1/users/38

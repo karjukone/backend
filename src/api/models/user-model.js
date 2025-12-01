@@ -44,14 +44,23 @@ const modifyUser = async (id, user) => {
 };
 
 const removeUser = async (id) => {
-  const [rows] = await promisePool.execute(
-    'DELETE FROM wsk_user WHERE user_id = ?', [id]
-  );
-  console.log('rows', rows);
-  if (rows.affectedRows === 0) {
+  try {
+    // first delete cat
+    await promisePool.execute(
+      'DELETE FROM wsk_cats WHERE owner = ?', [id]
+    );
+    const [rows] = await promisePool.execute(
+      'DELETE FROM wsk_users WHERE user_id = ?', [id]
+    );
+    console.log('rows', rows);
+    if (rows.affectedRows === 0) {
+      return false;
+    }
+    return {message: 'success'};
+  } catch (error) {
+    console.error('Error removing user:', error);
     return false;
   }
-  return {message: 'success'};
 };
 
 

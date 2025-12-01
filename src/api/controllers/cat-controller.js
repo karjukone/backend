@@ -7,19 +7,17 @@ const getCat = async (req, res) => {
 const getCatById = async (req, res) => {
   const cat = await findCatById(req.params.id);
   if (cat) {
-    res.json(cat);
+    res.json(cat); 
   } else {
     res.sendStatus(404);
   }
 };
 
 const postCat = async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  console.log(req.file.filename);
-  // lisätään tiedostonimi req.bodyyn, jotta addCat saa kaiken
+  if (!req.file) {
+    return res.sendStatus(400).json({message: 'File is required'});
+  }
   req.body.filename = req.file.filename;
-
   const result = await addCat(req.body);
   if (result.cat_id) {
     res.status(201);
