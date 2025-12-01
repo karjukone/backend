@@ -6,8 +6,11 @@ import {
   putUser,
   deleteUser,
 } from '../controllers/user-controller.js';
+import catRouter from './cat-router.js';
 
 const userRouter = express.Router();
+catRouter
+  .route
 
 userRouter.route('/').get(getUser).post(postUser);
 
