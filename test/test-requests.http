@@ -44,7 +44,7 @@ Content-Disposition: form-data; name="birthdate"
 Content-Disposition: form-data; name="file"; filename="kuva.jpg"
 Content-Type: image/jpeg
 
-./kuva.jpg
+./kuva.pdf
 --MyBoundary--
 
 
@@ -75,12 +75,12 @@ Content-Type: application/json
 
 {
   "username": "saku5",
-  "password": "kissa123"
+  "password": "m"
 }
 
 ###
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MywibmFtZSI6InNha3UiLCJ1c2VybmFtZSI6InNha3U1IiwiZW1haWwiOiJzYWt1QG1ldHJvcG9saWEuZmkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDYwODMwMywiZXhwIjoxNzY0Njk0NzAzfQ.H2i2cInzoeXmJPkrarweHMCMSh_q5glq920eX4Ri_VA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MywibmFtZSI6InNha3UiLCJ1c2VybmFtZSI6InNha3U1IiwiZW1haWwiOiJzYWt1QG1ldHJvcG9saWEuZmkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDY4ODcxMSwiZXhwIjoxNzY0Nzc1MTExfQ.0h0rNX0TlwjXYWzGsBDOw9JLapO3hgezSde-1YRrWbo
 
 ### Get my user info
 GET http://localhost:3000/api/v1/auth/me

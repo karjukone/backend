@@ -3,18 +3,20 @@ import bcrypt from 'bcrypt';
 import {findUserByUsername} from '../models/user-model.js';
 import 'dotenv/config';
 
-const postLogin = async (req, res) => {
+const postLogin = async (req, res, next) => {
   console.log('postLogin', req.body);
   const user = await findUserByUsername(req.body.username);
   if (!user) {
-    res.sendStatus(401);
-    return;
+    const error = new Error('Invalid credentials');
+    error.status = 401;
+    return next(error);
   }
 
   const passwordMatch = await bcrypt.compare(req.body.password, user.password);
   if (!passwordMatch) {
-    res.sendStatus(401);
-    return;
+    const error = new Error('Invalid credentials');
+    error.status = 401;
+    return next(error);
   }
   
   const userWithNoPassword = {
@@ -26,18 +28,19 @@ const postLogin = async (req, res) => {
   };
 
   const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
-    expiresIn: '24h', // token expiration time, e.g. 24 hours, can be configured in .env too
+    expiresIn: '24h', 
   });
   res.json({user: userWithNoPassword, token});
 };
 
-const getMe = async (req, res) => {
+const getMe = async (req, res, next) => {
   console.log('getMe', res.locals.user);
-  if ( res.locals.user) {
-    res.json({message: 'token ok', user:  res.locals.user});
-  } else {
-    res.sendStatus(401);
+  if (!res.locals.user) {
+    const error = new Error('Unauthorized');
+    error.status = 401;
+    return next(error);
   }
+  res.json({message: 'token ok', user:  res.locals.user});
 };
 
 export {postLogin, getMe};

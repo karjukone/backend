@@ -5,58 +5,47 @@ const getUser = async (req, res) => {
   res.json(await listAllUsers());
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   const result = await findUserById(req.params.id);
-  if (result) {
-    res.json(result);
-  } else {
-    res.sendStatus(404);
+  if (!result) {
+    const error = new Error('User not found');
+    error.status = 404;
+    return next(error);
   }
+  res.json(result);
 };
 
 const postUser = async (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const result = await addUser(req.body);
-  if (result.user_id) {
-    res.status(201);
-    res.json({message: 'New user added.', result});
-  } else {
-    res.sendStatus(400);
-  }
+  res.status(201);
+  res.json({message: 'New user added.', result});
 };
 
-const putUser = async (req, res) => {
+const putUser = async (req, res, next) => {
   const authUser = res.locals.user;
-  if (!authUser) return res.sendStatus(401);
-  // allow admin or the user 
-  if (!(authUser.role === 'admin' || String(authUser.user_id) === String(req.params.id))) {
-    return res.status(403).json({message: 'forbidden'});
-  }
-
   if (req.body.password) {
     req.body.password = bcrypt.hashSync(req.body.password, 10);
   }
 
   const user = await modifyUser(req.params.id, req.body, authUser);
-  if (user) {
-    res.status(200).json({message: 'User updated.'});
-  } else {
-    res.sendStatus(404);
+  if (!user) {
+    const error = new Error('User not found');
+    error.status = 404;
+    return next(error);
   }
+  res.status(200).json({message: 'User updated.'});
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   const authUser = res.locals.user;
-  if (!authUser) return res.sendStatus(401);
-  if (!(authUser.role === 'admin' || String(authUser.user_id) === String(req.params.id))) {
-    return res.status(403).json({message: 'forbidden'});
-  }
   const user = await removeUser(req.params.id, authUser);
-  if (user) {
-    res.status(200).json({message: 'User deleted.'});
-  } else {
-    res.sendStatus(404);
+  if (!user) {
+    const error = new Error('User not found');
+    error.status = 404;
+    return next(error);
   }
+  res.status(200).json({message: 'User deleted.'});
 };
 
 export {getUser, getUserById, postUser, putUser, deleteUser};

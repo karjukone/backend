@@ -7,10 +7,9 @@ import {
   deleteCat,
 } from '../controllers/cat-controller.js';
 
-import multer from 'multer';
+import {upload} from '../middlewares/uploads.js';
 import {authenticateToken} from '../middlewares/authentication.js';
 import {authorizeOwner} from '../middlewares/authorization.js';
-const upload = multer({dest: 'uploads/'});
 
 const catRouter = express.Router();
 

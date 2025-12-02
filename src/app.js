@@ -1,5 +1,7 @@
 import express from 'express';
 import api from './api/index.js';
+import { notFoundHandler, errorHandler } from './api/middlewares/error-handlers.js';
+
 const app = express();
 
 // Web sivusto tarjoillaan public-kansiosta
@@ -31,5 +33,8 @@ app.get(
     res.send('Tiedosto upattu ja käsitelty');
   }
 );
+
+app.use(notFoundHandler); // 404 käsittelijä
+app.use(errorHandler); // yleinen virheiden käsittelijä
 
 export default app;
